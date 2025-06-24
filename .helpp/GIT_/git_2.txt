@@ -1,0 +1,40 @@
+'''
+------------       BRANCH       ----------------------:
+
+    -git branch (nome)  branch secundaria para n alterar a principal
+    
+    -git checkout -b (nome da branch) -> CRIA UMA BRANCH NOVA E JA UTILIZA ELA
+
+    -git checkou (nome da branch) trabalha com a branch escolhida, no caso a secundaria
+    
+    -git checkout -- 'nome do arquivo'  volta ao estado original antes de editado
+
+    -git branch -d (nome da branch) -> DELETA A BRANCH SECUNDARIA
+
+
+------------       MERGE \ REBASE       ----------------------:
+
+    -git merge (nome da branch para puxar as alteracoes)
+
+    -git rebase (nome da branch)
+    
+    IMPORTANTE -> rebase romeove commits feitas por outras branchs
+
+
+------------       CLONE       ----------------------:
+
+    git clone 'C:\Users\rafae\OneDrive\Área de Trabalho\python\Geek Unversity_ Git_2'
+
+    git pull -> faz tudo oque ta definido logo a baixo |
+
+    git fetch -> BAIXA OS ARQUIVOS DO PROJETO PRINCIPAL, POREM NAO EFETUA O MERGE 
+     \ | /
+    git rebase -> para salvar os aqruivos novos baixados no SUB-PROJETO
+    
+    
+    git push -> ENVIA OS COMITS AO REPOSITORIO CENTRAL
+    
+
+------------       REVERT       ----------------------:
+
+    -git revert <commit id>  REMOVE AS ALTERACOES DO ULTIMO COMMIT FEITO

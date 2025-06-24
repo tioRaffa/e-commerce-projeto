@@ -1,0 +1,22 @@
+
+    
+    
+    python -m venv .venv:
+        source .venv/Scripts/activate
+
+
+    git init:
+        touch .gitignore -> criacao
+        
+        echo "# projec-3-geek" >>README.md
+
+        git add .  -|-  git commit -m 'my first commit'
+
+        git branch -M main
+
+        git remote........
+
+        git push -u origin main  -> O código será enviado para o repositório remoto (origin) na branch main.
+
+! ->    git pull --rebase origin main  | Baixa as alterações do repositório remoto (origin/main)
+
