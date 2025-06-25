@@ -1,0 +1,1 @@
+from .teste_auth import *
