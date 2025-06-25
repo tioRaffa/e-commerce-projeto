@@ -52,6 +52,5 @@ class FirebaseAuthentication(BaseAuthentication):
         
         decoded_token = self._verify_firebase_token(token=token)
         user = self._get_or_create_local_user(decoded_token=decoded_token)
-        ProfileModel.objects.get_or_create(user=user)
 
         return (user, None)
