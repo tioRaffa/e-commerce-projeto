@@ -23,7 +23,6 @@ class UserReadSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id',
-            'username',
             'email',
             'first_name',
             'last_name',
@@ -41,26 +40,22 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
             'phone_number'
         ]
 
-        def validate_cpf(self, value):
-            cpf_limpo = ''.join(filter(str.isdigit, value or ''))
+    def validate_cpf(self, value):
+        cpf_limpo = ''.join(filter(str.isdigit, value or ''))
 
-            if not validar_cpf(cpf_limpo):
-                raise serializers.ValidationError({
-                    "cpf": "CPF invalido!"
-                })
-            return value
-        
-        def validate(self, data):
-            if 'cpf' in data:
-                cpf_existente = self.instance.cpf
+        if not validar_cpf(cpf_limpo):
+            raise serializers.ValidationError("CPF inválido!")
+        return value
 
-            if cpf_existente:
+    def validate(self, data):
+        if 'cpf' in data:
+            if self.instance and self.instance.cpf:
                 raise serializers.ValidationError({
                     "cpf": "O CPF já foi definido e não pode ser alterado."
                 })
-            return data
+        return data
         
 class UserUpdateSerializer(serializers.Serializer):
-    first_name = serializers.CharField(required=False, max_lenght=50)
-    last_name = serializers.CharField(required=False, max_lenght=50)
+    first_name = serializers.CharField(required=False, max_length=50)
+    last_name = serializers.CharField(required=False, max_length=50)
     profile = ProfileUpdateSerializer(required=False)

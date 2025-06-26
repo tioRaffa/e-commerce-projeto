@@ -1,1 +1,1 @@
-from .teste_auth import *
+from .user_viewset import *
