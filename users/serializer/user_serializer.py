@@ -18,7 +18,7 @@ class ProfileReadSerializer(serializers.ModelSerializer):
     
 class UserReadSerializer(serializers.ModelSerializer):
     profile = ProfileReadSerializer(read_only=True)
-    addresses = AddressSerializer(read_only=True)
+    addresses = AddressSerializer(read_only=True, many=True)
     class Meta:
         model = User
         fields = [
