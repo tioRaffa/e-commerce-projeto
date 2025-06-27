@@ -9,7 +9,6 @@ class AddressViewset(viewsets.ModelViewSet):
     serializer_class = AddressSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsOwenerAuth
     ]
 
     def get_queryset(self):

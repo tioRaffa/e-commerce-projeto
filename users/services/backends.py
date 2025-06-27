@@ -31,9 +31,9 @@ class FirebaseAuthentication(BaseAuthentication):
         return decode
     
     def _get_or_create_local_user(self, decoded_token):
-        uid = decoded_token("uid")
-        email = decoded_token("email", "")
-        name = decoded_token("name", "")
+        uid = decoded_token.get("uid")
+        email = decoded_token.get("email", "")
+        name = decoded_token.get("name", "")
         first_name = name.split(" ")[0] if name else ""
         last_name = " ".join(name.split(" ")[1:]) if name and " " in name else ""
         email_verified = decoded_token.get("email_verified", False)

@@ -21,6 +21,9 @@ class AddressSerializer(serializers.ModelSerializer):
         ]
        
     def validate(self, data):
+        if "zip_code" not in data:
+            return data
+
         cep = ''.join(filter(str.isdigit, data.get('zip_code', '')))
 
         if len(cep) != 8:

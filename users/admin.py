@@ -4,7 +4,7 @@ from .models import ProfileModel
 
 @admin.register(ProfileModel)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'cpf', 'birth_date', 'email_verified']
+    list_display = ['id', 'user', 'user__first_name', 'cpf', 'birth_date', 'email_verified']
     list_display_links = ['id', 'user', 'cpf']
     
     search_fields = ['id', 'user__username', 'user__email', 'user__first_name','cpf', ]
