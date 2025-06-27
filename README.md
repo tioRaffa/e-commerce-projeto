@@ -64,9 +64,3 @@ A API segue as melhores práticas REST e utiliza paginação para listagens.
 -   [ ] Escrever uma suíte de testes completa com `pytest` para garantir a cobertura das regras de negócio.
 
 ---
-
-### Contato
-
-* **[Seu Nome Completo]**
-* **LinkedIn:** https://blogg.sorentio.no/sosiale-medier/linkedin-ekspert-dette-ma-du-gjore-med-profilen-din/7659/
-* **Email:** seu.email@provedor.com
