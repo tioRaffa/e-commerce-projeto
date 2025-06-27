@@ -35,14 +35,22 @@ class FirebaseAuthentication(BaseAuthentication):
         email = decoded_token("email", "")
         name = decoded_token("name", "")
         first_name = name.split(" ")[0] if name else ""
+        last_name = " ".join(name.split(" ")[1:]) if name and " " in name else ""
+        email_verified = decoded_token.get("email_verified", False)
 
         user, _ =User.objects.get_or_create(
             username=uid,
             defaults={
                 "email": email,
                 "first_name": first_name,
+                "last_name": last_name
             }
         )
+
+        if hasattr(user, 'profile'):
+            user.profile.email_verified = email_verified
+            user.profile.save()
+
         return user
     
     def authenticate(self, request):
