@@ -78,3 +78,39 @@ class TestUserMeEndpoint:
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert 'cpf' in response.data or 'profile' in response.data and 'cpf' in response.data['profile']
+    
+    def test_put_me_method_not_allowed(self):
+        '''
+        teste para garantir que o metodo putch não é autorizado
+        '''
+        user = User.objects.create_user(username='username-teste', email='email@teste.com')
+        cliente = APIClient()
+        cliente.force_authenticate(user=user)
+
+        put_data = {
+            "first_name": "bla"
+        }
+        response = cliente.put(self.url, data=put_data, format='json')
+
+        assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
+
+    def test_patch_me_invalid_cpf_format(self):
+        '''
+        TESTANDO CPF INVALIDO
+        '''
+        user = User.objects.create_user(username='username-teste', email='email@teste.com')
+
+        cliente = APIClient()
+        cliente.force_authenticate(user=user)
+        
+        patch_data = {
+            "profile": {
+                "cpf": '123456789101112'
+            }
+        }
+
+        response = cliente.patch(self.url, data=patch_data, format='json')
+        user.refresh_from_db()
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert 'cpf' in response.data or 'profile' in response.data and 'cpf' in response.data['profile']
