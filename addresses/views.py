@@ -23,7 +23,7 @@ class AddressViewset(viewsets.ModelViewSet):
         address_count = self.get_queryset().count()
         if address_count >=3:
             return Response({
-                "Detail": "Limite de 3 endereços por Usuario atingidos!"
+                "detail": "Limite de 3 endereços por Usuario atingidos!"
             },
             status=status.HTTP_400_BAD_REQUEST
             )
