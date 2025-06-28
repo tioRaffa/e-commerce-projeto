@@ -58,9 +58,22 @@ A API segue as melhores práticas REST e utiliza paginação para listagens.
 
 ### Próximos Passos no Desenvolvimento
 
--   [ ] Implementar o `BookViewSet` e a integração com a Google Books API.
--   [ ] Desenvolver a lógica e os endpoints para `Orders` e `OrderItems`.
--   [ ] Conteinerizar a aplicação com **Docker** e **Docker Compose** para um ambiente de desenvolvimento e produção padronizado.
--   [ ] Escrever uma suíte de testes completa com `pytest` para garantir a cobertura das regras de negócio.
+O foco agora se volta para a construção do núcleo transacional do e-commerce. As próximas etapas planejadas são:
+
+-   [ ] **Implementar o Catálogo de Livros (`apps/books`):**
+    -   Finalizar o `BookViewSet` e a integração com a **Google Books API**.
+    -   Criar o comando de gerenciamento para importar e sincronizar livros de forma automatizada.
+
+-   [ ] **Desenvolver o Módulo de Pedidos (`apps/orders`):**
+    -   Construir a lógica e os endpoints para `Order` e `OrderItem`. Este é o coração do e-commerce, orquestrando as seguintes integrações:
+    -   **Cálculo de Frete:** Integrar com a API do **Melhor Envio** para obter cotações em tempo real com base no endereço do cliente e nas dimensões/peso dos produtos.
+    -   **Processamento de Pagamento:** Implementar o fluxo de checkout com o gateway de pagamento **AbacatePay**, lidando com respostas de sucesso e falha na transação.
+    -   **Comunicação com o Cliente:** Utilizar a API do **SendGrid** para o envio automático de e-mails transacionais, como confirmação de pedido e notificação de envio com código de rastreio.
+
+-   [ ] **Expandir a Cobertura de Testes com `pytest`:**
+    -   Criar testes automatizados para as novas regras de negócio dos apps `books` e `orders`, garantindo a estabilidade e a qualidade do código.
+
+-   [ ] **Conteinerizar a Aplicação com `Docker`:**
+    -   Escrever o `Dockerfile` e o `docker-compose.yml` para empacotar toda a aplicação, criando um ambiente de desenvolvimento e produção padronizado e portátil.
 
 ---
