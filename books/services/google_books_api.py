@@ -5,6 +5,17 @@ import requests
 from books.models import BookModel, AuthorModel, CategoryModel
 
 def search_google_api(query: str) -> dict:
+    """
+    Pesquisa a API do Google Books por livros que correspondam à consulta fornecida.
+    Args:
+        query (str): O termo de busca para consultar a API do Google Books.
+    Retorna:
+        dict: A resposta JSON da API do Google Books como um dicionário Python.
+    Exceções:
+        requests.exceptions.RequestException: Se houver um problema com a requisição HTTP.
+    Observação:
+        Requer uma chave de API válida do Google Books definida em settings.GOOGLE_BOOKS_API_KEY.
+    """
     url = "https://www.googleapis.com/books/v1/volumes"
     api_key = settings.GOOGLE_BOOKS_API_KEY
     
@@ -23,6 +34,20 @@ def search_google_api(query: str) -> dict:
 
 @transaction.atomic
 def import_from_google_api(google_id: str) -> BookModel:
+    """
+    Importa um livro da API do Google Books e o cadastra no banco de dados.
+    Parâmetros:
+        google_id (str): O ID do livro na API do Google Books.
+    Retorna:
+        BookModel: Instância do livro criado.
+    Lança:
+        ValueError: Se o livro já estiver cadastrado, não for encontrado na API do Google,
+                    ou se o volume retornado não possuir título.
+        requests.exceptions.RequestException: Se ocorrer um erro na requisição à API do Google Books.
+    Notas:
+        - Cria ou recupera autores e categorias associados ao livro.
+        - Utiliza transação atômica para garantir integridade dos dados.
+    """
     if BookModel.objects.filter(google_book_id=google_id).exists():
         raise ValueError('Livro já cadastrado!')
     
