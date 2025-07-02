@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from .author_model import AuthorModel
 from .category_model import CategoryModel
 
@@ -29,7 +30,7 @@ class BookModel(models.Model):
 
 
     slug = models.SlugField(max_length=250, null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Preço - R$')
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name='Preço - R$', validators=[MinValueValidator(0)],)
     stock = models.PositiveIntegerField(default=0, verbose_name='Quantidade em Estoque')
     is_active = models.BooleanField(default=False, verbose_name='Ativo na Loja')
 

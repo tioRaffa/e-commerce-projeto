@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from books.models import AuthorModel, CategoryModel, BookModel
+from django.core.exceptions import ValidationError 
+
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -81,6 +83,11 @@ class BookSerializer(serializers.ModelSerializer):
         author = validated_data.pop('authors', [])
         category = validated_data.pop('categories', [])
         book = BookModel.objects.create(**validated_data)
+        
+        try:
+            book.full_clean()
+        except ValidationError as e:
+            raise serializers.ValidationError(e.message_dict)
 
         if author:
             book.authors.set(author)
@@ -89,10 +96,14 @@ class BookSerializer(serializers.ModelSerializer):
         return book
     
     def update(self, instance: BookModel, validated_data):
-        author = validated_data.pop('author', None)
+        author = validated_data.pop('authors', None)
         category = validated_data.pop('categories', None)
 
         instance = super().update(instance, validated_data)
+        try:
+            instance.full_clean()
+        except ValidationError as e:
+            raise serializers.ValidationError(e.message_dict)
 
         if author is not None:
             instance.authors.set(author)
