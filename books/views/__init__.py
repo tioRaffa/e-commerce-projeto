@@ -1,1 +1,1 @@
-from book_view import BookViewSetAPI
+from .book_view import BookViewSetAPI

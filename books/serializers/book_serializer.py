@@ -37,7 +37,7 @@ class BookSerializer(serializers.ModelSerializer):
     )
 
     formatted_price = serializers.ReadOnlyField()
-    is_redy_for_shipping = serializers.SerializerMethodField()
+    is_ready_for_shipping = serializers.SerializerMethodField()
 
     class Meta:
         model = BookModel

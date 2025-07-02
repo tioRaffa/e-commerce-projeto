@@ -31,7 +31,7 @@ class BookViewSetAPI(viewsets.ModelViewSet):
         search_google_books(request): Busca livros na Google Books API.
         import_from_google_books(request): Importa um livro da Google Books API para o banco local.
     """
-    queryset = BookModel.objects.prefetch_related("author", "categories")
+    queryset = BookModel.objects.prefetch_related("authors", "categories")
     serializer_class = BookSerializer
     
     permission_classes  = [IsStaffAuthOrReadOnly]

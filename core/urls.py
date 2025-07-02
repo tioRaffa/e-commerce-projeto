@@ -6,10 +6,12 @@ from rest_framework.routers import SimpleRouter
 
 from users.views import UserViewSet
 from addresses.views import AddressViewset
+from books.views import BookViewSetAPI
 
 router = SimpleRouter()
 router.register('users', UserViewSet, basename='user-api')
 router.register('addresses', AddressViewset, basename='address-api')
+router.register('books', BookViewSetAPI, basename='book-api')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
