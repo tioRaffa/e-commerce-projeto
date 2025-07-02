@@ -48,7 +48,7 @@ def import_from_google_api(google_id: str) -> BookModel:
         - Cria ou recupera autores e categorias associados ao livro.
         - Utiliza transação atômica para garantir integridade dos dados.
     """
-    if BookModel.objects.filter(google_book_id=google_id).exists():
+    if BookModel.objects.filter(google_books_id=google_id).exists():
         raise ValueError('Livro já cadastrado!')
     
     url = f"https://www.googleapis.com/books/v1/volumes/{google_id}"
@@ -65,13 +65,13 @@ def import_from_google_api(google_id: str) -> BookModel:
         raise
 
     data = response.json()
-    info = data.get('VolumeInfo', {})
+    info = data.get('volumeInfo', {})
 
     if not info.get('title'):
         raise ValueError("Volume retornado pela API não possui Titulo!")
     
-    authors = [AuthorModel.objects.get_or_create(name=name) for name in info.get("authors", [])]
-    categories = [CategoryModel.objects.get_or_create(name=name) for name in info.get("categories", [])]
+    authors = [AuthorModel.objects.get_or_create(name=name)[0] for name in info.get("authors", [])]
+    categories = [CategoryModel.objects.get_or_create(name=name)[0] for name in info.get("categories", [])]
 
     isbn_13 = next((i['identifier'] for i in info.get('industryIdentifiers', []) if i['type'] == 'ISBN_13'), None)
     isbn_10 = next((i['identifier'] for i in info.get('industryIdentifiers', []) if i['type'] == 'ISBN_10'), None)
