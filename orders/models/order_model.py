@@ -1,8 +1,6 @@
 from django.db import models
 from django.conf import settings
-from books.models.book_model import BookModel
 
-# Classe Base Corrigida
 class Base(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
