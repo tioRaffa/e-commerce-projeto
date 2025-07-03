@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from rest_framework import status
-from books.models import BookModel
+from books.models import BookModel, AuthorModel
 
 # Marcador para indicar que todos os testes neste arquivo precisam de acesso ao banco de dados
 pytestmark = pytest.mark.django_db
@@ -73,3 +73,18 @@ def test_delete_book_authenticated_staff(api_client, create_staff_user, book):
     response = api_client.delete(url)
     assert response.status_code == status.HTTP_204_NO_CONTENT
     assert not BookModel.objects.filter(pk=book.pk).exists()
+
+def test_update_book_authors_authenticated_staff(api_client, create_staff_user, book):
+    """
+    Testa se um usuário staff pode atualizar os autores de um livro.
+    """
+    api_client.force_authenticate(user=create_staff_user)
+    new_author = AuthorModel.objects.create(name='New Author')
+    url = reverse('book-api-detail', kwargs={'pk': book.pk})
+    data = {'author_ids': [new_author.id]}
+    response = api_client.patch(url, data, format='json')
+    
+    assert response.status_code == status.HTTP_200_OK
+    book.refresh_from_db()
+    assert book.authors.count() == 1
+    assert book.authors.first() == new_author
