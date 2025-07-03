@@ -6,7 +6,7 @@ from addresses.models import AddressModel
 from rest_framework.exceptions import ValidationError
 
 
-class OrdemReadSerializer(serializers.ModelSerializer):
+class OrderReadSerializer(serializers.ModelSerializer):
     items = OrderItemReadSerializer(many=True, read_only=True)
     final_total = serializers.ReadOnlyField()
     user = serializers.StringRelatedField()
@@ -39,11 +39,10 @@ class OrderCreateSerializer(serializers.Serializer):
         write_only=True,
         help_text="Metodo de envio escolhido (ex: 'SEDEX')."
     )
-
-    payment_token = serializers.CharField(
-        required=True, 
+    payment_method_id = serializers.CharField(
+        required=True,
         write_only=True,
-        help_text="Token de pagamento gerado pelo frontend."
+        help_text="ID do Método de Pagamento gerado pelo Stripe.js (ex: pm_...)"
     )
     items = OrderItemCreateSerializer(
         many=True,

@@ -68,18 +68,13 @@ class OrderModel(Base):
         verbose_name="ID do Pedido no Melhor Envio"
     )
 
-    # Abacate Pay
-    payment_method = models.CharField(
-        max_length=50,
-        blank=True,
-        verbose_name='Metodo de Pagamento'
-    )
-    payment_charge_id = models.CharField(
+    # Stripe
+    stripe_payment_intent_id = models.CharField(
         max_length=100,
+        blank=True, 
         null=True,
-        blank=True,
         unique=True,
-        verbose_name='ID de transação -AbacatePay-'
+        verbose_name="ID da Intenção de Pagamento (Stripe)"
     )
 
     class Meta:
