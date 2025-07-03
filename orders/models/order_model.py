@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from addresses.models import AddressModel
 
 class Base(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,15 +24,18 @@ class OrderModel(Base):
         verbose_name='Usuario',
         related_name='orders'
     )
+    address = models.ForeignKey(
+        AddressModel,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Endereço de Entrega"
+    )
     status = models.CharField(
         max_length=20,
         choices=OrderStatus.choices,
         default=OrderStatus.PENDING_PAYMENT,
         verbose_name='Status do Pedido'
     )
-
-    # Endereço de entrega 
-    shipping_address = models.TextField(verbose_name="Endereço de Entrega Completo")
 
     # Financeiro
     total_items_price = models.DecimalField(
