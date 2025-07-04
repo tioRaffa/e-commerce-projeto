@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config, Csv
+import stripe
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -11,6 +12,13 @@ SECRET_KEY = config('SECRET_KEY')
 
 # Google api KEY
 GOOGLE_BOOKS_API_KEY = config('GOOGLE_BOOKS_API_KEY')
+
+# Stripe
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+stripe.api_key = STRIPE_SECRET_KEY
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
