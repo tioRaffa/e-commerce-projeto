@@ -6,7 +6,7 @@ class IsOwenerAuth(permissions.BasePermission):
         return bool(request.user and request.user.is_authenticated)
     
     def has_object_permission(self, request, view, obj):
-        return obj.user == self.request.user
+        return obj.user == request.user
     
 
 class IsStaffAuthOrReadOnly(permissions.BasePermission):

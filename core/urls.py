@@ -7,6 +7,7 @@ from rest_framework.routers import SimpleRouter
 from users.views import UserViewSet
 from addresses.views import AddressViewset
 from books.views import BookViewSetAPI
+from orders.views import CartAPIView, OrderViewSet
 
 router = SimpleRouter()
 router.register('users', UserViewSet, basename='user-api')
@@ -16,6 +17,7 @@ router.register('books', BookViewSetAPI, basename='book-api')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
+    path('api/v1/', CartAPIView.as_view(), name='cart-api')
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
