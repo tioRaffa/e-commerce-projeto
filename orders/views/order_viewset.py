@@ -42,25 +42,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response({
                 'detail': 'Seu carrinho esta vazio.'
             }, status=status.HTTP_400_BAD_REQUEST)
-        
-
-        address = validated_data.get('address')
-
-        try:
-            # APi melhor envio
-            shipping_cost = Decimal('15.10') # valor exemplo
-
-            total_items_price = sum(Decimal(item['price']) * item['quantity'] for item in cart.values())
-            
-            final_total = total_items_price + shipping_cost
-            payment_method_id = validated_data.get('payment_method_id')
-
-            payment_intent = process_payment_with_stripe(
-                amount=final_total,
-                payment_method_id=payment_method_id
-            )
-
-
-
-        except:
-            ...
+    
+        ...
+        ...
+        ...
