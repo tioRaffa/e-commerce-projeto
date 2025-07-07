@@ -51,7 +51,7 @@ class OrderModel(Base):
 
     # Melhor Envio
     shipping_method = models.CharField(
-        max_length=100,
+        max_length=255,
         blank=True,
         verbose_name="Metodo de Envio (ex: SEDEX)"
     )
@@ -70,7 +70,7 @@ class OrderModel(Base):
 
     # Stripe
     stripe_payment_intent_id = models.CharField(
-        max_length=100,
+        max_length=255,
         blank=True, 
         null=True,
         unique=True,

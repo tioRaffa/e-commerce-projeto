@@ -31,7 +31,7 @@ class BookViewSetAPI(viewsets.ModelViewSet):
         search_google_books(request): Busca livros na Google Books API.
         import_from_google_books(request): Importa um livro da Google Books API para o banco local.
     """
-    queryset = BookModel.objects.prefetch_related("authors", "categories")
+    queryset = BookModel.objects.filter(is_active=True).prefetch_related("authors", "categories")
     serializer_class = BookSerializer
     
     permission_classes  = [IsStaffAuthOrReadOnly]
@@ -40,6 +40,7 @@ class BookViewSetAPI(viewsets.ModelViewSet):
         filters.SearchFilter,
         filters.OrderingFilter
     ]
+
 
     search_fields = ["title", "isbn_13", "isbn_10", "authors__name", "categories__name"]
     ordering_fields = ['price', 'created_at', 'page_count']

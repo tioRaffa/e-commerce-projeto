@@ -18,7 +18,7 @@ class OrderItemModel(Base):
         )
     
     book_title_snapshot = models.CharField(
-        max_length=100,
+        max_length=500,
         verbose_name='Titulo do Livro (no momento da compra)'
     )
     quantity = models.PositiveIntegerField(

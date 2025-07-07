@@ -44,20 +44,14 @@ class OrderCreateSerializer(serializers.Serializer):
         write_only=True,
         help_text="ID do Método de Pagamento gerado pelo Stripe.js (ex: pm_...)"
     )
-    items = OrderItemCreateSerializer(
-        many=True,
-        write_only=True
-    )
+    
 
     def validate_address_id(self, value):
         user = self.context['request'].user
         try:
-            address = AddressModel.objects.get(pk=value, profile__user=user)
+            address = AddressModel.objects.get(pk=value, user=user)
         except AddressModel.DoesNotExist:
               raise serializers.ValidationError("Endereço inválido ou não pertence a este usuário.")
         return address
     
-    def validate_items(self, value):
-        if not value:
-            raise serializers.ValidationError("A lista de itens não pode estar vazia.")
-        return value
+    

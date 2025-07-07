@@ -31,7 +31,7 @@ def process_payment_with_stripe(amount: Decimal, payment_method_id: str) -> stri
     
 
 def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel:
-    address = validated_data.get('address')
+    address = validated_data.get('address_id')
     shipping_method = validated_data.get('shipping_method')
     payment_method_id = validated_data.get('payment_method_id')
     
@@ -51,7 +51,6 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
         order = OrderModel.objects.create(
             user=user,
             address=address,
-            shipping_address=f'{address.street}, {address.number}, {address.city}',
             status=OrderModel.OrderStatus.PROCESSING,
             total_items_price=total_items_price,
             shipping_cost=shipping_cost,
@@ -60,34 +59,38 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
         )
 
 
-    order_items_to_create = []
-    books_to_update = []
+        order_items_to_create = []
+        books_to_update = []
 
-    for book_id_str, item_data in cart.items():
-        book = get_object_or_404(BookModel, pk=int(book_id_str))
-        if book.stock < item_data['quantity']:
-            raise ValueError(
-                f'Estoque insuficiente para o livro - {book.title}'
+        for book_id_str, item_data in cart.items():
+            book = get_object_or_404(BookModel, pk=int(book_id_str))
+            if book.stock < item_data['quantity']:
+                raise ValueError(
+                    f'Estoque insuficiente para o livro - {book.title}'
+                )
+            original_title = item_data.get('title', '')
+                
+            max_len = OrderItemModel._meta.get_field('book_title_snapshot').max_length
+            truncated_title = (original_title[:max_len - 3] + '...') if len(original_title) > max_len else original_title
+            
+            order_items_to_create.append(
+                OrderItemModel(
+                    order=order,
+                    book=book,
+                    book_title_snapshot=truncated_title,
+                    quantity=item_data['quantity'],
+                    price_at_purchase=Decimal(item_data['price'])
+                )
             )
-        
-        order_items_to_create.append(
-            OrderItemModel(
-                order=order,
-                book=book,
-                book_title_snapshot=item_data['title'],
-                quantity=item_data['quantity'],
-                price_at_purchase=item_data['price']
-            )
+            book.stock -= item_data['quantity']
+            books_to_update.append(book)
+
+        OrderItemModel.objects.bulk_create(
+            order_items_to_create
         )
-        book.stock -= item_data['quantity']
-        books_to_update.append(book)
-
-    OrderItemModel.objects.bulk_create(
-        order_items_to_create
-    )
-    BookModel.objects.bulk_update(
-        books_to_update, ['stock']
-    )
+        BookModel.objects.bulk_update(
+            books_to_update, ['stock']
+        )
 
     # -> sendgrid
 

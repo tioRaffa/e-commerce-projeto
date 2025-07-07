@@ -19,7 +19,7 @@ class BookModel(models.Model):
     title = models.CharField(max_length=150, verbose_name='Titulo do Livro')
     authors = models.ManyToManyField(AuthorModel, related_name='author_books', verbose_name='Autores')
     categories = models.ManyToManyField(CategoryModel, related_name='category_books', verbose_name='Categorias')
-    publisher = models.CharField(max_length=250, verbose_name='Editora', null=True, blank=True)
+    publisher = models.CharField(max_length=500, verbose_name='Editora', null=True, blank=True)
     published_date = models.CharField(max_length=20, verbose_name='Data de Publicação', blank=True, null=True)
     description = models.TextField(null=True, blank=True, verbose_name='Descrição')
     page_count = models.PositiveIntegerField(verbose_name='Numeros de Paginas', null=True, blank=True)
