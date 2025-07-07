@@ -44,9 +44,9 @@ class AddressSerializer(serializers.ModelSerializer):
             logradouro_api = viacep_data.get('logradouro')
             if logradouro_api:
                 data['street'] = logradouro_api
-            data['neighborhood'] = viacep_data.get('bairro')
-            data['city'] = viacep_data.get('localidade')
-            data['state'] = viacep_data.get('uf')
+                data['neighborhood'] = viacep_data.get('bairro')
+                data['city'] = viacep_data.get('localidade')
+                data['state'] = viacep_data.get('uf')
 
         except requests.exceptions.RequestException:
             print(f"AVISO: Validação de CEP para {cep} falhou. Usando dados do usuário.")
