@@ -1,9 +1,10 @@
 from rest_framework import viewsets, permissions, status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from orders.models import OrderModel
 from orders.serializer import OrderReadSerializer, OrderCreateSerializer
 from decimal import Decimal
-from orders.services.stripe import create_order_from_cart
+from orders.services.stripe import create_order_from_cart, cancel_order_serivice
 
 
 
@@ -58,3 +59,22 @@ class OrderViewSet(viewsets.ModelViewSet):
                 {"detail": "Erro ao salvar no banco: um valor é muito longo ou uma chave única foi duplicada."},
                 status=status.HTTP_400_BAD_REQUEST
             )
+    
+    @action(detail=True, methods=['post'], url_path='cancel')
+    def cancel_order(self, request, pk=None):
+        order = self.get_object()
+
+        if order.status != OrderModel.OrderStatus.PROCESSING:
+            return Response({
+                'detail': f"Não é possivel cancelar um pedido com o status '{order.get_status_display()}'. "
+            }, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            cancel_order_serivice(order)
+            
+            serializer = self.get_serializer(order)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
