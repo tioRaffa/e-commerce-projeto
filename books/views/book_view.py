@@ -42,7 +42,7 @@ class BookViewSetAPI(viewsets.ModelViewSet):
     ]
 
 
-    search_fields = ["title", "isbn_13", "isbn_10", "authors__name", "categories__name"]
+    search_fields = ['title', 'isbn_13', 'isbn_10', 'authors__name', 'categories__name', 'source']
     ordering_fields = ['price', 'created_at', 'page_count']
     ordering = ['-created_at']
 

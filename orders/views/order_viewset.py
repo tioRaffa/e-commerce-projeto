@@ -49,23 +49,11 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(read_serializer.data, status=status.HTTP_201_CREATED)
         
         except (ValueError, Exception) as e:
-            print("=========================================================")
-            print(">>> ERRO DE INTEGRIDADE DO BANCO CAPTURADO <<<")
-            print(f"TIPO DA EXCEÇÃO: {type(e)}")
-            print(f"MENSAGEM COMPLETA DO ERRO: {e}")
-            print("=========================================================")
             return Response({
                 'detail': str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
         
         except IntegrityError as e:
-            # ESTE PRINT É A NOSSA FERRAMENTA DE DEPURAÇÃO
-            print("=========================================================")
-            print(">>> ERRO DE INTEGRIDADE DO BANCO CAPTURADO <<<")
-            print(f"TIPO DA EXCEÇÃO: {type(e)}")
-            print(f"MENSAGEM COMPLETA DO ERRO: {e}")
-            print("=========================================================")
-            
             return Response(
                 {"detail": "Erro ao salvar no banco: um valor é muito longo ou uma chave única foi duplicada."},
                 status=status.HTTP_400_BAD_REQUEST

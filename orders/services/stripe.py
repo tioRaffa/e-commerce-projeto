@@ -40,18 +40,13 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
 
     total_items_price = sum(Decimal(item['price']) * item['quantity'] for item in cart.values())
     final_total = total_items_price + shipping_cost
-    
-    payment_intent = process_payment_with_stripe(
-        amount=final_total,
-        payment_method_id=payment_method_id
-    )
-    
+   
 
     with transaction.atomic():
         order = OrderModel.objects.create(
             user=user,
             address=address,
-            status=OrderModel.OrderStatus.PROCESSING,
+            status=OrderModel.OrderStatus.PENDING_PAYMENT,
             total_items_price=total_items_price,
             shipping_cost=shipping_cost,
             shipping_method=shipping_method,
@@ -85,6 +80,7 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
             book.stock -= item_data['quantity']
             books_to_update.append(book)
 
+
         OrderItemModel.objects.bulk_create(
             order_items_to_create
         )
@@ -92,6 +88,47 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
             books_to_update, ['stock']
         )
 
-    # -> sendgrid
+        try:
+            payment_intent = process_payment_with_stripe(
+                amount=final_total,
+                payment_method_id=payment_method_id
+            )
+            order.status = OrderModel.OrderStatus.PROCESSING
+            order.stripe_payment_intent_id = payment_intent.id
+            order.save(update_fields=['status', 'stripe_payment_intent_id', 'updated_at'])
+
+            # SENDGRID pra sucesso
+
+        except (ValueError, Exception) as e:
+            order.status = OrderModel.OrderStatus.FAILED
+            order.save(update_fields=['status', 'updated_at'])                
+
+            # -> sendgrid pra falha
+            raise e
 
     return order
+
+def refound_stripe_payment(payment_intent_id: str):
+    try:
+        stripe.Refund.create(payment_intent=payment_intent_id)
+
+    except Exception as e:
+        raise Exception(f"Falha ao estornar o pagamento no Stripe: {str(e)}")
+
+
+def cancel_order_serivice(order: OrderModel):
+    if not order.stripe_payment_intent_id:
+        raise ValueError('Este pedido não possui um ID de pagamento para estornar.')
+
+    with transaction.atomic():
+        for item in order.items.all():
+            item.book.stock += item.quantity
+            item.book.save(update_fields=['stock'])
+        
+        refound_stripe_payment(order.stripe_payment_intent_id)
+
+        order.status = OrderModel.OrderStatus.CANCELED
+        order.save(update_fields=['status', 'updated_at'])
+
+        # sendgrid pra cancelar
+
