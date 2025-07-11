@@ -8,6 +8,8 @@ import stripe.error
 from orders.models import OrderItemModel, OrderModel
 from books.models import BookModel
 
+from .melhor_envio import calculate_shipping_with_melhor_envio
+
 def process_payment_with_stripe(amount: Decimal, payment_method_id: str) -> stripe.PaymentIntent:
     amount_in_cents = int(amount * 100)
 
@@ -36,7 +38,15 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
     payment_method_id = validated_data.get('payment_method_id')
     
     # Melhor Envio
-    shipping_cost = Decimal('20.00') # Valor de exemplo
+    shipping_options = calculate_shipping_with_melhor_envio(cart, address.zip_code)
+    selected_option = next((opt for opt in shipping_options if opt['name'] == shipping_method), None)
+     
+    if not selected_option:
+        raise ValueError(
+            f'Metodo de envio -- {shipping_method} -- não é valido para este endereço'
+        )
+    
+    shipping_cost = Decimal(selected_option['price'])
 
     total_items_price = sum(Decimal(item['price']) * item['quantity'] for item in cart.values())
     final_total = total_items_price + shipping_cost
