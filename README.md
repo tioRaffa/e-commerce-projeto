@@ -63,6 +63,85 @@ O projeto foi estruturado para ser modular, seguro e de fácil manutenção, seg
 
 ---
 
+
+### 🛠️ Gerenciamento do Catálogo via Terminal (Management Commands)
+
+Para facilitar a população e o gerenciamento do catálogo de livros, foram criados comandos customizados do Django. Eles devem ser executados no terminal, na pasta raiz do projeto, com o ambiente virtual ativado.
+
+#### 1\. Pesquisar Livros no Google (`search_books`)
+
+Este comando busca livros na Google Books API para encontrar IDs que podem ser usados para importação.
+
+  * **Comando:**
+    ```bash
+    python manage.py search_books "TERMO_DA_PESQUISA"
+    ```
+  * **Descrição:** Ele retorna uma lista de resultados com `título`, `autores` e, mais importante, o `google_books_id` de cada livro. Use-o para encontrar o ID de um livro que você deseja importar.
+
+#### 2\. Importar um Livro Específico (`import_book`)
+
+Uma vez que você tem um ID, este comando importa o livro para o seu banco de dados.
+
+  * **Comando:**
+    ```bash
+    python manage.py import_book "GOOGLE_BOOKS_ID"
+    ```
+  * **Descrição:** Utiliza um `google_books_id` para importar todos os detalhes de um livro específico da API do Google e salvá-lo no banco de dados local.
+
+#### 3\. Importar Livros por Categoria (`import_books_by_category`)
+
+Útil para popular rapidamente o banco de dados com livros de um gênero específico.
+
+  * **Comando:**
+    ```bash
+    python manage.py import_books_by_category "NOME_DA_CATEGORIA"
+    ```
+  * **Descrição:** Pesquisa por uma categoria na Google Books API e importa automaticamente um número pré-definido (ex: 5) dos livros mais relevantes encontrados.
+
+#### 4\. Importação em Massa ou por Título (`create_random_books`)
+
+Um comando versátil para gerar dados de teste ou encontrar um livro específico pelo título.
+
+  * **Comando (por contagem):**
+
+    ```bash
+    python manage.py create_random_books --count 10
+    ```
+
+      * **Descrição:** Importa um número especificado (`10`, no exemplo) de livros de um conjunto de categorias pré-definidas. Ótimo para gerar dados de teste rapidamente.
+
+  * **Comando (por título):**
+
+    ```bash
+    python manage.py create_random_books --title "O Senhor dos Anéis"
+    ```
+
+      * **Descrição:** Pesquisa por um título específico e importa o livro correspondente.
+
+-----
+
+#### Fluxo de Trabalho Recomendado
+
+O fluxo mais comum para adicionar um livro específico ao catálogo seria:
+
+1.  **Encontrar o ID:**
+
+    ```bash
+    python manage.py search_books "Duna Frank Herbert"
+    ```
+
+2.  **Copiar o `google_books_id`** da lista de resultados (ex: `gK98gXR8onwC`).
+
+3.  **Importar o livro:**
+
+    ```bash
+    python manage.py import_book "gK98gXR8onwC"
+    ```
+
+4.  **Definir Preço e Estoque:** Acesse o **Django Admin** para editar o livro recém-importado, adicionando o `preço`, o `estoque` e as informações de `dimensões/peso` para o cálculo de frete.
+
+-----
+
 ### Próximos Passos no Desenvolvimento
 
 -   [ ] **Conteinerizar a Aplicação:** Empacotar a aplicação e seus serviços com **Docker** e **Docker Compose**.
