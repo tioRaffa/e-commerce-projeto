@@ -3,11 +3,20 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework import status, permissions
 from books.models import BookModel
+from datetime import datetime, timedelta
 
 class CartAPIView(APIView):
     permission_classes = [permissions.AllowAny]
+    CART_EXPIRATION_MINUTES = 60
 
     def get(self, request, *args, **kwargs ):
+        cart_expiration_str = request.session.get('cart_expiration')
+        if cart_expiration_str:
+            cart_expiration = datetime.fromisoformat(cart_expiration_str)
+            if datetime.now() > cart_expiration:
+                request.session['cart'] = {}
+                request.session.pop('cart_expiration', None)
+
         cart  = request.session.get('cart', {})
         return Response(cart, status=status.HTTP_200_OK)
     
@@ -44,6 +53,8 @@ class CartAPIView(APIView):
             'thumbnail_url': book.thumbnail_url or ''
         }
         request.session['cart'] = cart
+        expiration_time = datetime.now() + timedelta(minutes=self.CART_EXPIRATION_MINUTES)
+        request.session['cart_expiration'] = expiration_time.isoformat()
 
         return Response(cart, status=status.HTTP_200_OK)
     
@@ -61,6 +72,11 @@ class CartAPIView(APIView):
         if book_id in cart:
             del cart[book_id]
             request.session['cart'] = cart
+            if not cart:
+                request.session.pop('cart_expiration', None)
+            else:
+                expiration_time = datetime.now() + timedelta(minutes=self.CART_EXPIRATION_MINUTES)
+                request.session['cart_expiration'] = expiration_time.isoformat()
             return Response(cart, status=status.HTTP_200_OK)
         
         return Response({

@@ -3,7 +3,6 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from orders.models import OrderModel
 from orders.serializer import OrderReadSerializer, OrderCreateSerializer
-from decimal import Decimal
 from orders.services.stripe import create_order_from_cart, cancel_order_serivice
 
 
