@@ -18,9 +18,7 @@ router.register('orders', OrderViewSet, basename='order-api')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
-    path('api/v1/cart/', CartAPIView.as_view(), name='cart-list'),
-    path('api/v1/cart/<int:pk>/', CartAPIView.as_view(), name='cart-detail'),
-    path('api/v1/checkout/shipping-options/', ShippingOptions.as_view(), name='shipping-options')
+    path('api/v1/', include('orders.urls')),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
