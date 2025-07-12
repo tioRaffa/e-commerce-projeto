@@ -35,7 +35,7 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
     address = validated_data.get('address_id')
     payment_method_id = validated_data.get('payment_method_id')
 
-    shipping_info = cart.get('selected_shipping')
+    shipping_info = cart.get('shipping_option')
     if not shipping_info:
         raise ValueError('Nenhum metodo de envio selecionado, Por favor.. Calcule o Frete Primeiro')
     
@@ -43,7 +43,7 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
 
     # Melhor Envio
     shipping_method = shipping_info.get('name')
-    shipping_cost = Decimal(shipping_info.get('cost'))
+    shipping_cost = Decimal(shipping_info.get('price'))
 
     total_items_price = sum(Decimal(item['price']) * item['quantity'] for item in cart.values())
     final_total = total_items_price + shipping_cost

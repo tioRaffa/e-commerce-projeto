@@ -93,7 +93,7 @@ class CartShippingSelectionAPIView(APIView):
 
         shipping_option = request.data.get('shipping_option')
 
-        if not shipping_option or 'name' not in shipping_option or 'coast' not in shipping_option:
+        if not shipping_option or 'name' not in shipping_option or 'price' not in shipping_option:
             return Response(
                 {"detail": "Uma opção de frete válida (com 'name' e 'cost') é obrigatória."}, 
                 status=status.HTTP_400_BAD_REQUEST
