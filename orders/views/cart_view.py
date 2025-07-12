@@ -83,3 +83,25 @@ class CartAPIView(APIView):
             'detail': 'Livro não encontrado.'
         },status=status.HTTP_404_NOT_FOUND 
         )
+    
+
+class CartShippingSelectionAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        cart = request.session.get('cart', {})
+
+        shipping_option = request.data.get('shipping_option')
+
+        if not shipping_option or 'name' not in shipping_option or 'coast' not in shipping_option:
+            return Response(
+                {"detail": "Uma opção de frete válida (com 'name' e 'cost') é obrigatória."}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        cart['shipping_option'] = shipping_option
+        request.session['cart'] = cart
+
+        return Response(cart, status=status.HTTP_200_OK)
+
+
