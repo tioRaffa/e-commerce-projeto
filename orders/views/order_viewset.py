@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from orders.models import OrderModel
 from orders.serializer import OrderReadSerializer, OrderCreateSerializer
-from orders.services.stripe_service import create_order_from_cart, cancel_order_serivice
+from orders.services.stripe_service import create_order_from_cart, cancel_order_service
 
 
 
@@ -70,7 +70,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             )
 
         try:
-            cancel_order_serivice(order)
+            cancel_order_service(order)
             
             serializer = self.get_serializer(order)
             return Response(serializer.data, status=status.HTTP_200_OK)

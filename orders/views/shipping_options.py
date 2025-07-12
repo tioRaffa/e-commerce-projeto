@@ -28,7 +28,7 @@ class ShippingOptions(APIView):
             address = get_object_or_404(AddressModel, pk=address_id, user=request.user)
 
             shipping_options = calculate_shipping_with_melhor_envio(
-                cart=cart.get('items'),
+                cart=cart,
                 zip_code=address.zip_code
             )
             return Response(

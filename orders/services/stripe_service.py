@@ -8,7 +8,6 @@ import stripe.error
 from orders.models import OrderItemModel, OrderModel
 from books.models import BookModel
 
-from .melhor_envio import calculate_shipping_with_melhor_envio
 
 def process_payment_with_stripe(amount: Decimal, payment_method_id: str) -> stripe.PaymentIntent:
     amount_in_cents = int(amount * 100)
@@ -34,19 +33,17 @@ def process_payment_with_stripe(amount: Decimal, payment_method_id: str) -> stri
 
 def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel:
     address = validated_data.get('address_id')
-    shipping_method = validated_data.get('shipping_method')
     payment_method_id = validated_data.get('payment_method_id')
+
+    shipping_info = cart.get('selected_shipping')
+    if not shipping_info:
+        raise ValueError('Nenhum metodo de envio selecionado, Por favor.. Calcule o Frete Primeiro')
     
+
+
     # Melhor Envio
-    shipping_options = calculate_shipping_with_melhor_envio(cart, address.zip_code)
-    selected_option = next((opt for opt in shipping_options if opt['name'] == shipping_method), None)
-     
-    if not selected_option:
-        raise ValueError(
-            f'Metodo de envio -- {shipping_method} -- não é valido para este endereço'
-        )
-    
-    shipping_cost = Decimal(selected_option['price'])
+    shipping_method = shipping_info.get('name')
+    shipping_cost = Decimal(shipping_info.get('cost'))
 
     total_items_price = sum(Decimal(item['price']) * item['quantity'] for item in cart.values())
     final_total = total_items_price + shipping_cost
@@ -125,7 +122,7 @@ def refound_stripe_payment(payment_intent_id: str):
         raise Exception(f"Falha ao estornar o pagamento no Stripe: {str(e)}")
 
 
-def cancel_order_serivice(order: OrderModel):
+def cancel_order_service(order: OrderModel):
     if not order.stripe_payment_intent_id:
         raise ValueError('Este pedido não possui um ID de pagamento para estornar.')
 

@@ -8,26 +8,27 @@ DEFAULT_PACKAGE_DIMENSIONS = {
     "length": 5,
 }
 
-def calculate_total_weight(cart: dict) -> Decimal:
+def calculate_total_weight(cart_items: list) -> Decimal:
     total_weight = Decimal('0')
-    for item in cart.values():
+    for item in cart_items:
         total_weight += Decimal('0.5') * item['quantity']
     return total_weight
 
 
 def calculate_shipping_with_melhor_envio(cart: dict, zip_code: str) -> list:
 
-    api_url = f'{config('ME_SANDBOX_URL')}//api/v2/me/shipment/calculate'
+    api_url = f'{config('ME_SANDBOX_URL')}/api/v2/me/shipment/calculate'
     token = config('ME_ACCESS_TOKEN')
 
     headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {token}",
-    "User-Agent": "Bookstore API - Projeto Pessoal (rafaelmuniz200@gmail.com)"
-    }
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {token}",
+        "User-Agent": "Bookstore API - Projeto Pessoal (rafaelmuniz200@gmail.com)"
+        }
 
-    total_weigth_kg = float(calculate_total_weight(cart))
+    items_to_calculate = cart.get('items') if cart.get('items') is not None else []
+    total_weigth_kg = float(calculate_total_weight(items_to_calculate))
 
     payload = {
         "from": {

@@ -5,8 +5,14 @@ from django.contrib.auth.models import User
 from users.serializer import UserUpdateSerializer, ProfileUpdateSerializer, UserReadSerializer
 from users.models import ProfileModel
 
-class UserViewSet(viewsets.GenericViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return User.objects.all()
+        return User.objects.filter(id=user.id)
 
     def get_serializer_class(self):
         if self.action == 'me' and self.request.method in ['PATCH']:
