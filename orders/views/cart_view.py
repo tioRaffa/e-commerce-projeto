@@ -44,7 +44,9 @@ class CartAPIView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
 
-        cart = request.session.get('cart', {'items': {}})
+        cart = request.session.get('cart', {})
+        if 'items' not in cart:
+            cart['items'] = {}
 
         cart['items'][book_id] = {
             'quantity': quantity,
