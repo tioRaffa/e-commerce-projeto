@@ -7,6 +7,9 @@ from books.models import BookModel, AuthorModel
 from django.contrib.auth.models import User
 from orders.serializer.order_item_serializer import OrderItemReadSerializer, OrderItemCreateSerializer
 
+from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
+
 # Marcador para indicar que todos os testes neste arquivo precisam de acesso ao banco de dados
 pytestmark = pytest.mark.django_db
 
@@ -32,17 +35,22 @@ def inactive_book():
     return BookModel.objects.create(title="Livro Inativo",         price=Decimal('19.99'), stock=5, is_active=False)
 
 @pytest.fixture
-def order_item(book):
-    """Cria um OrderItem de teste para ser usado no serializer de leitura."""
-    user = User.objects.create_user(username="testserializeruser")
+def order_instance():
+    """Cria uma instância de OrderModel para testes."""
+    user = User.objects.create_user(username="testorderuser")
     order = OrderModel.objects.create(
         user=user,
-        total_items_price=100,
-        shipping_cost=20,
+        total_items_price=Decimal('100.00'),
+        shipping_cost=Decimal('20.00'),
         status=OrderModel.OrderStatus.PROCESSING
     )
+    return order
+
+@pytest.fixture
+def order_item(book, order_instance):
+    """Cria um OrderItem de teste para ser usado no serializer de leitura."""
     return OrderItemModel.objects.create(
-        order=order,
+        order=order_instance,
         book=book,
         book_title_snapshot=book.title,
         quantity=2,
@@ -125,3 +133,5 @@ def test_order_item_create_serializer_missing_data():
     assert serializer.is_valid() is False
     assert 'book_id' in serializer.errors
     assert 'Este campo é obrigatório.' in str(serializer.errors['book_id'])
+
+
