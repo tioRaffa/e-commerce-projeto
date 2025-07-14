@@ -37,5 +37,5 @@ class ShippingOptions(APIView):
 
         except Exception as e:
             return Response({
-                'detail': str(e)
+                'detail-erro': str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
