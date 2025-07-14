@@ -58,7 +58,7 @@ def calculate_shipping_with_melhor_envio(cart: dict, zip_code: str) -> list:
             raise ValueError(f"Nenhuma opção de frete encontrada para este CEP - {zip_code}")
         return shipping_options
 
-    except Exception as e: 
-        raise Exception(f'Erro ao calcular Frete: {e}')
     except requests.RequestException as e:
         raise Exception(f'Falha na requisição da API Melhor Envio: {e}')
+    except Exception as e: 
+        raise Exception(f'Erro ao calcular Frete: {e}')
