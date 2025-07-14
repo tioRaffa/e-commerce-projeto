@@ -61,7 +61,7 @@ def test_shipping_options_url(mock_calculate_shipping, api_client, authenticated
 
     address = AddressModel.objects.create(user=authenticated_user, street='Test Street', city='Test City', state='TS', zip_code='12345-678', number='123', neighborhood='Test Neighborhood')
     book = BookModel.objects.create(title='Test Book for Shipping', price=20.00)
-    cart_data = {'items': [{'book_id': book.pk, 'quantity': 1}]}
+    cart_data = {'items': {str(book.pk): {'quantity': 1, 'price': float(book.price), 'title': book.title}}}
     
     session = api_client.session
     session['cart'] = cart_data
