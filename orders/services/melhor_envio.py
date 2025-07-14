@@ -9,11 +9,15 @@ DEFAULT_PACKAGE_DIMENSIONS = {
 }
 
 
+from books.models.book_model import BookModel
+
 def calculate_total_weight(cart_items: list) -> Decimal:
-    total_weight = Decimal('0')
+    total_weight_grams = Decimal('0')
     for item in cart_items:
-        total_weight += Decimal('0.5') * item['quantity']
-    return total_weight
+        book = BookModel.objects.get(pk=item['book_id'])
+        if book.weight_g:
+            total_weight_grams += book.weight_g * item['quantity']
+    return total_weight_grams / 1000 
 
 
 def calculate_shipping_with_melhor_envio(cart: dict, zip_code: str) -> list:
@@ -28,7 +32,7 @@ def calculate_shipping_with_melhor_envio(cart: dict, zip_code: str) -> list:
         "User-Agent": "Bookstore API - Projeto Pessoal (rafaelmuniz200@gmail.com)"
         }
 
-    items_to_calculate = cart.get('items') if cart.get('items') is not None else []
+    items_to_calculate = [{**item_data, 'book_id': key} for key, item_data in cart.items() if key != 'shipping_option']
     total_weigth_kg = float(calculate_total_weight(items_to_calculate))
 
     payload = {

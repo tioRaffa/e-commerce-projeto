@@ -45,7 +45,9 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
     shipping_method = shipping_info.get('name')
     shipping_cost = Decimal(shipping_info.get('price'))
 
-    total_items_price = sum(Decimal(item['price']) * item['quantity'] for item in cart.values())
+    cart_items = cart.get('items', {})
+
+    total_items_price = sum(Decimal(item['price']) * item['quantity'] for item in cart_items.values())
     final_total = total_items_price + shipping_cost
    
 
@@ -63,7 +65,7 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
         order_items_to_create = []
         books_to_update = []
 
-        for book_id_str, item_data in cart.items():
+        for book_id_str, item_data in cart_items.items():
             book = get_object_or_404(BookModel, pk=int(book_id_str))
             if book.stock < item_data['quantity']:
                 raise ValueError(

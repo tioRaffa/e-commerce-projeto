@@ -18,9 +18,10 @@ class ShippingOptions(APIView):
             return Response({
                 'detail': 'O Id de endereço é obrigatorio'
             }, status=status.HTTP_400_BAD_REQUEST)
-        if not cart:
+        cart_items = cart.get('items', {})
+        if not cart_items:
             return Response({
-                'detail': 'O carrinho esta vazil'
+                'detail': 'O carrinho esta vazio'
             }, status=status.HTTP_400_BAD_REQUEST)
         
 
@@ -28,7 +29,7 @@ class ShippingOptions(APIView):
             address = get_object_or_404(AddressModel, pk=address_id, user=request.user)
 
             shipping_options = calculate_shipping_with_melhor_envio(
-                cart=cart,
+                cart=cart_items,
                 zip_code=address.zip_code
             )
             return Response(

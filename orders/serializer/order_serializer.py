@@ -35,7 +35,7 @@ class OrderCreateSerializer(serializers.Serializer):
         help_text="ID do endereço de entrega selecionado pelo usuário."
     )
     shipping_method = serializers.CharField(
-        required=True, 
+        required=False, 
         write_only=True,
         help_text="Metodo de envio escolhido (ex: 'SEDEX')."
     )

@@ -17,7 +17,7 @@ class CartAPIView(APIView):
                 request.session['cart'] = {}
                 request.session.pop('cart_expiration', None)
 
-        cart  = request.session.get('cart', {})
+        cart  = request.session.get('cart', {'items': {}})
         return Response(cart, status=status.HTTP_200_OK)
     
     def post(self, request, *arg, **kwargs):
@@ -44,9 +44,9 @@ class CartAPIView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
 
-        cart = request.session.get('cart', {})
+        cart = request.session.get('cart', {'items': {}})
 
-        cart[book_id] = {
+        cart['items'][book_id] = {
             'quantity': quantity,
             'title': book.title,
             'price': str(book.price),
@@ -69,8 +69,8 @@ class CartAPIView(APIView):
         
         cart = request.session.get('cart', {})
 
-        if book_id in cart:
-            del cart[book_id]
+        if book_id in cart.get('items', {}):
+            del cart['items'][book_id]
             request.session['cart'] = cart
             if not cart:
                 request.session.pop('cart_expiration', None)
