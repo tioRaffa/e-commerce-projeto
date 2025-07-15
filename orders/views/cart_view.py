@@ -4,6 +4,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework import status, permissions
 from books.models import BookModel
 from datetime import datetime, timedelta
+from django.utils import timezone
 
 class CartAPIView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -13,8 +14,8 @@ class CartAPIView(APIView):
         cart_expiration_str = request.session.get('cart_expiration')
         if cart_expiration_str:
             cart_expiration = datetime.fromisoformat(cart_expiration_str)
-            if datetime.now() > cart_expiration:
-                request.session['cart'] = {}
+            if timezone.now() > cart_expiration:
+                request.session['cart'] = {'items': {}}
                 request.session.pop('cart_expiration', None)
 
         cart  = request.session.get('cart', {'items': {}})
@@ -55,7 +56,7 @@ class CartAPIView(APIView):
             'thumbnail_url': book.thumbnail_url or ''
         }
         request.session['cart'] = cart
-        expiration_time = datetime.now() + timedelta(minutes=self.CART_EXPIRATION_MINUTES)
+        expiration_time = timezone.now() + timedelta(minutes=self.CART_EXPIRATION_MINUTES)
         request.session['cart_expiration'] = expiration_time.isoformat()
 
         return Response(cart, status=status.HTTP_200_OK)
@@ -77,7 +78,7 @@ class CartAPIView(APIView):
             if not cart:
                 request.session.pop('cart_expiration', None)
             else:
-                expiration_time = datetime.now() + timedelta(minutes=self.CART_EXPIRATION_MINUTES)
+                expiration_time = timezone.now() + timedelta(minutes=self.CART_EXPIRATION_MINUTES)
                 request.session['cart_expiration'] = expiration_time.isoformat()
             return Response(cart, status=status.HTTP_200_OK)
         

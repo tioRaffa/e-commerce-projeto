@@ -41,18 +41,10 @@ def test_order_list_url(api_client, authenticated_user):
 
 @pytest.mark.django_db
 def test_cart_list_url(api_client, authenticated_user):
-    url = reverse('cart-list')
+    url = reverse('cart-api')
     response = api_client.get(url)
     assert response.status_code == status.HTTP_200_OK
 
-@pytest.mark.django_db
-def test_cart_detail_url(api_client, authenticated_user):
-    book = BookModel.objects.create(title='Test Book', price=10.00)
-    order = OrderModel.objects.create(user=authenticated_user, total_items_price=10.00, shipping_cost=0.00)
-    order_item = OrderItemModel.objects.create(order=order, book=book, quantity=1, price_at_purchase=10.00, book_title_snapshot='Test Book')
-    url = reverse('cart-detail', kwargs={'pk': order_item.pk})
-    response = api_client.get(url)
-    assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.django_db
 @patch('orders.services.melhor_envio.calculate_shipping_with_melhor_envio')
