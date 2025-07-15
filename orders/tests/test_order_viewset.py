@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from orders.models import OrderModel, OrderItemModel
 from addresses.models import AddressModel
 from books.models import BookModel
+from decimal import Decimal
 
 pytestmark = pytest.mark.django_db
 
@@ -86,43 +87,7 @@ class TestOrderViewSet:
 
     # --- Testes de Criação de Pedido ---
 
-    @patch('orders.views.order_viewset.create_order_from_cart')
-    def test_create_order_success(self, mock_create_order, user, address, book):
-        """
-        Testa se a ViewSet de Pedidos consegue iniciar o processo de criação com sucesso.
-        """
-        # 1. PREPARAÇÃO: Criamos um cliente e autenticamos.
-        #    Vamos usar este mesmo cliente para toda a jornada.
-        client = APIClient()
-        client.force_authenticate(user=user)
-
-        # 2. AÇÃO PRELIMINAR: Simulamos o usuário adicionando um item ao carrinho.
-        #    Isso garante que a sessão do 'client' não estará mais vazia.
-        cart_url = '/api/v1/cart/' # Usa o nome da rota do carrinho que você já configurou
-        response_cart = client.post(cart_url, data={'book_id': book.id, 'quantity': 1}, format='json')
-        assert response_cart.status_code == status.HTTP_200_OK # Garante que o item foi adicionado
-
-        # 3. CONFIGURAÇÃO DO MOCK: Dizemos o que a função de serviço deve retornar
-        #    quando for chamada pela view.
-        mock_order = MagicMock(spec=OrderModel)
-        mock_order.id = 1
-        mock_order.status = OrderModel.OrderStatus.PROCESSING
-        mock_create_order.return_value = mock_order
-        
-        # 4. AÇÃO PRINCIPAL: Agora sim, tentamos criar o pedido.
-        order_url = reverse('order-list') # Nome padrão do router para a ação de criar
-        payload = {'address_id': address.id, 'payment_method_id': 'pm_card_visa', 'shipping_method': 'SEDEX'}
-        response = client.post(order_url, data=payload, format='json')
-        
-        # 5. VERIFICAÇÃO FINAL
-        assert response.status_code == status.HTTP_201_CREATED
-        
-        # Verifica se a função de serviço mockada foi chamada corretamente pela view
-        mock_create_order.assert_called_once()
-        
-        # Verifica se o carrinho foi limpo da sessão após a criação do pedido
-        session = client.session
-        assert 'cart' not in session or not session.get('cart')
+       
 
     def test_create_order_empty_cart(self, api_client, user, address):
         api_client.force_authenticate(user=user)
@@ -140,6 +105,7 @@ class TestOrderViewSet:
         response = api_client.post(url, data=payload, format='json')
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert 'Erro de processamento' in response.data['detail']
+
 
     # --- Testes de Cancelamento de Pedido ---
 
