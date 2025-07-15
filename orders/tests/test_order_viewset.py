@@ -98,7 +98,7 @@ class TestOrderViewSet:
 
         # 2. AÇÃO PRELIMINAR: Simulamos o usuário adicionando um item ao carrinho.
         #    Isso garante que a sessão do 'client' não estará mais vazia.
-        cart_url = reverse('cart-api') # Usa o nome da rota do carrinho que você já configurou
+        cart_url = '/api/v1/cart/' # Usa o nome da rota do carrinho que você já configurou
         response_cart = client.post(cart_url, data={'book_id': book.id, 'quantity': 1}, format='json')
         assert response_cart.status_code == status.HTTP_200_OK # Garante que o item foi adicionado
 
@@ -110,7 +110,7 @@ class TestOrderViewSet:
         mock_create_order.return_value = mock_order
         
         # 4. AÇÃO PRINCIPAL: Agora sim, tentamos criar o pedido.
-        order_url = reverse('order-api-list') # Nome padrão do router para a ação de criar
+        order_url = reverse('order-list') # Nome padrão do router para a ação de criar
         payload = {'address_id': address.id, 'payment_method_id': 'pm_card_visa', 'shipping_method': 'SEDEX'}
         response = client.post(order_url, data=payload, format='json')
         

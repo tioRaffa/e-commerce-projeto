@@ -5,6 +5,7 @@ from rest_framework import status, permissions
 from books.models import BookModel
 from datetime import datetime, timedelta
 from django.utils import timezone
+from django.utils.timezone import make_aware, is_naive
 
 class CartAPIView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -14,6 +15,10 @@ class CartAPIView(APIView):
         cart_expiration_str = request.session.get('cart_expiration')
         if cart_expiration_str:
             cart_expiration = datetime.fromisoformat(cart_expiration_str)
+
+            if is_naive(cart_expiration):
+                cart_expiration = make_aware(cart_expiration)
+
             if timezone.now() > cart_expiration:
                 request.session['cart'] = {'items': {}}
                 request.session.pop('cart_expiration', None)
