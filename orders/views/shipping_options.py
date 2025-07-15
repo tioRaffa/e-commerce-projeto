@@ -25,9 +25,9 @@ class ShippingOptions(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
 
-        try:
-            address = get_object_or_404(AddressModel, pk=address_id, user=request.user)
+        address = get_object_or_404(AddressModel, pk=address_id, user=request.user)
 
+        try:
             shipping_options = calculate_shipping_with_melhor_envio(
                 cart=cart_items,
                 zip_code=address.zip_code
