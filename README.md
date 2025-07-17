@@ -18,7 +18,7 @@ API RESTful robusta para uma plataforma de e-commerce de livros, projetada com u
 
 Este é um projeto de portfólio que está sendo construído ativamente. O objetivo é explorar e implementar as melhores práticas em desenvolvimento backend, integração de APIs e arquitetura de software. As funcionalidades descritas abaixo estão sendo adicionadas de forma incremental.
 
-**Progresso Atual:** A fundação da aplicação (autenticação, usuários, endereços, catálogo) e o núcleo do fluxo de pagamento com Stripe estão **concluídos e testados**. A integração com os serviços de logística está sendo finalizada e a de comunicação transacional é o próximo passo.
+**Progresso Atual:** A fundação da aplicação (autenticação, usuários, endereços, catálogo) e o núcleo do fluxo de pagamento com **Stripe** estão **concluídos e testados**. O foco atual é na **conteinerização da aplicação com Docker**, preparando o terreno para a automação e o deploy.
 
 ---
 
@@ -42,7 +42,7 @@ O projeto foi estruturado para ser modular, seguro e de fácil manutenção, seg
 -   [x] **Sistema de Carrinho de Compras:** Gestão de um carrinho temporário utilizando o framework de **sessão do Django**.
 -   [x] **Ciclo de Pagamento Completo:** Integração com a **API do Stripe** (em modo de teste) para processamento seguro de pagamentos.
 -   [x] **Testes Automatizados (Base):** Suíte de testes com `pytest` para a fundação da aplicação (usuários e endereços).
--   [🚧] **Cálculo de Frete em Tempo Real:** Integração com a **API do Melhor Envio** para obter cotações de frete (em andamento).
+-   [🚧] **Cálculo de Frete em Tempo Real:** Integração com a **API do Melhor Envio** para obter cotações de frete (lógica implementada, aguardando finalização).
 -   [ ] **Comunicação Transacional:** Envio automático de e-mails de confirmação e status via **SendGrid**.
 -   [ ] **Gestão Completa de Pedidos:** Finalização da `ViewSet` e dos serviços que orquestram todo o fluxo de checkout.
 
@@ -144,8 +144,12 @@ O fluxo mais comum para adicionar um livro específico ao catálogo seria:
 
 ### Próximos Passos no Desenvolvimento
 
--   [ ] **Conteinerizar a Aplicação:** Empacotar a aplicação e seus serviços com **Docker** e **Docker Compose**.
--   [ ] **Implementar CI/CD:** Criar um workflow com **GitHub Actions** para rodar testes e construir a imagem Docker automaticamente.
+O roadmap atual está focado em preparar a aplicação para um ambiente de produção.
+
+-   [🚧] **Conteinerizar a Aplicação com Docker:** Escrever o `Dockerfile` e o `docker-compose.yml` para empacotar a aplicação e seus serviços (PostgreSQL) em um ambiente padronizado.
+-   [ ] **Finalizar as Integrações:** Concluir a implementação da chamada à API do **Melhor Envio** e conectar o serviço do **SendGrid** para o envio de e-mails transacionais.
+-   [ ] **Implementar CI/CD com GitHub Actions:** Criar um workflow para rodar os testes (`pytest`) automaticamente a cada `push` e preparar a imagem Docker para o deploy.
 -   [ ] **Deploy na Nuvem:** Publicar a aplicação em uma plataforma como **Render.com**.
+
 
 ---
