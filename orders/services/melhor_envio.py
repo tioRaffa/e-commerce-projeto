@@ -73,7 +73,7 @@ def generate_shipping_label_service(order: OrderModel):
     
     base_url = config('ME_SANDBOX_URL')
     api_url = f'{base_url}/api/v2/me/cart'
-    token = config('ME_ACCESS_TOKE')
+    token = config('ME_ACCESS_TOKEN')
 
     headers = {
         "Accept": "application/json",
@@ -95,9 +95,9 @@ def generate_shipping_label_service(order: OrderModel):
         },
         "to": {
             "name": order.user.get_full_name(),
-            "phone": str(order.user.profile.phone_number),
-            "email": order.user.email,
-            "document": order.user.profile.cpf,
+            "phone": str(order.address.user.profile.phone_number),
+            "email": order.address.user.email,
+            "document": order.address.user.profile.cpf,
             "postal_code": order.address.zip_code,
             "address": order.address.street,
             "number": order.address.number,
@@ -121,7 +121,7 @@ def generate_shipping_label_service(order: OrderModel):
     requests.post(f'{base_url}/api/v2/me/shipment/checkout', json=checkout_payload, headers=headers).raise_for_status()
 
     generate_payload = {"orders": [order_id_me]}
-    generate_response = requests.post(f"{api_url}/api/v2/me/shipment/generate", json=generate_payload, headers=headers)
+    generate_response = requests.post(f"{base_url}/api/v2/me/shipment/generate", json=generate_payload, headers=headers)
     generate_response.raise_for_status()   
 
     tracking_code = generate_payload.json()[order_id_me]['tracking']
