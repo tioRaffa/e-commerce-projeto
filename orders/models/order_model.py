@@ -55,6 +55,12 @@ class OrderModel(Base):
         blank=True,
         verbose_name="Metodo de Envio (ex: SEDEX)"
     )
+    shipping_service_id = models.IntegerField(
+        null=True, 
+        blank=True, 
+        verbose_name='Id do serviço de envio'
+        )
+
     tracking_code = models.CharField(
         max_length=100,
         blank=True,
