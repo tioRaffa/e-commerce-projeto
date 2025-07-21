@@ -10,7 +10,7 @@ class BookModel(models.Model):
     # cadastro via API ou manual
     SOURCE_CHOICES = [
         ('manual', 'MANUAL'),
-        ('google_bookS', 'GOOGLE_BOOKS')
+        ('google_books', 'GOOGLE_BOOKS')
     ]
     source = models.CharField(max_length=20, choices=SOURCE_CHOICES, default='manual', verbose_name='fonte')
 
