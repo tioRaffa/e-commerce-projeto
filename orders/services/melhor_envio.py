@@ -22,7 +22,8 @@ def calculate_total_weight(cart_items: list) -> Decimal:
 
 def calculate_shipping_with_melhor_envio(cart: dict, zip_code: str) -> list:
 
-    api_url = f'{config('ME_SANDBOX_URL')}/api/v2/me/shipment/calculate'
+    base_url = config('ME_SANDBOX_URL')
+    api_url = f'{base_url}/api/v2/me/shipment/calculate'
     token = config('ME_ACCESS_TOKEN')
 
     headers = {

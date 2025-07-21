@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 COPY requirements.txt .
 RUN python -m venv /opt/venv && \
-    /opt/ven/bin/pip install --upgrade pip && \
-    /opt/venv/bin/pip install --no-cache-dit -r requirements.txt
+    /opt/venv/bin/pip install --upgrade pip && \
+    /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
 
 ENV PATH="/opt/venv/bin:$PATH"
 
