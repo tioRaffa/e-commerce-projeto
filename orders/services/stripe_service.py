@@ -42,6 +42,7 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
 
 
     # Melhor Envio
+    shipping_service_id = shipping_info.get('id')
     shipping_method = shipping_info.get('name')
     shipping_cost = Decimal(shipping_info.get('price'))
 
@@ -59,6 +60,7 @@ def create_order_from_cart(user, cart: dict, validated_data: dict) -> OrderModel
             total_items_price=total_items_price,
             shipping_cost=shipping_cost,
             shipping_method=shipping_method,
+            shipping_service_id=shipping_service_id
         )
 
 
