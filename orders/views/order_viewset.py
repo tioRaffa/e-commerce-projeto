@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from orders.models import OrderModel
 from orders.serializer import OrderReadSerializer, OrderCreateSerializer
 from orders.services.stripe_service import create_order_from_cart, cancel_order_service
+from orders.services.melhor_envio import generate_shipping_label_service
 
 
 
@@ -77,3 +78,22 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAdminUser], url_path='ship')
+    def ship_order(self, request, pk=None):
+        order = self.get_object()
+
+        if order.status != OrderModel.OrderStatus.PROCESSING:
+            return Response({
+                'detail': f'Apenas pedidos processados podem ser enviados.'
+            })
+        
+        try:
+            updated_order = generate_shipping_label_service(order=order)
+            serializer = self.get_serializer(updated_order)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                'detail': str(e)
+            }, status=status.HTTP_400_BAD_REQUEST
+            )
