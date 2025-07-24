@@ -1,0 +1,19 @@
+{
+  "name": "bookstore-api",
+  "version": "1.0.0",
+  "description": "API para o projeto de e-commerce de livros.",
+  "scripts": {
+    "up": "docker-compose up -d",
+    "build": "docker-compose up --build -d",
+    "down": "docker-compose down",
+    "logs": "docker-compose logs -f web",
+    "shell": "docker-compose exec web bash",
+    "migrate": "docker-compose exec web python manage.py migrate",
+    "superuser": "docker-compose exec web python manage.py createsuperuser",
+    "test": "docker-compose exec web pytest",
+    "test:path": "docker-compose exec web pytest"
+  },
+  "keywords": [],
+  "author": "Rafael Muniz",
+  "license": "ISC"
+}
