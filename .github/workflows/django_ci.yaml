@@ -42,18 +42,32 @@ jobs:
       - name: Run Tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DEBUG: "False"
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+          FIREBASE_CREDENTIALS_JSON: ${{ secrets.FIREBASE_CREDENTIALS_JSON }}
+          ME_ACCESS_TOKEN: ${{ secrets.ME_ACCESS_TOKEN }}
           
+          CSRF_TRUSTED_ORIGINS: ${{ secrets.CSRF_TRUSTED_ORIGINS }}
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+          DEBUG: ${{ secrets.DEBUG }}
+          
+          DB_ENGINE: ${{ secrets.DB_ENGINE }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_HOST: localhost 
           POSTGRES_PORT: 5432
-          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
-          FIREBASE_CREDENTIALS_JSON: ${{ secrets.FIREBASE_CREDENTIALS_JSON }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
-          ME_ACCESS_TOKEN: ${{ secrets.ME_ACCESS_TOKEN }}
+
+          ME_CLME_CLIENT_ID: ${{ secrets.ME_CLME_CLIENT_ID }}
+          ME_CLIENT_SECRET: ${{ secrets.ME_CLIENT_SECRET }}
+          ME_SANDBOX_URL: ${{ secrets.ME_CLME_CLIENT_ID }}
+          MY_STORE_ZIP_CODE: ${{ secrets.MY_STORE_ZIP_CODE }}
+          MY_STORE_CITY: ${{ secrets.MY_STORE_CITY }}
+          MY_STORE_STATE_ABBR: ${{ secrets.MY_STORE_STATE_ABBR}}
+          MY_STORE_CPF: ${{ secrets.MY_STORE_CPF }}
+
+        
         run: |
           echo "$FIREBASE_CREDENTIALS_JSON" > serviceAccountKey.json
           python manage.py migrate
