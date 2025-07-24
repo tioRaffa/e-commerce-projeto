@@ -52,6 +52,7 @@ jobs:
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
           FIREBASE_CREDENTIALS_JSON: ${{ secrets.FIREBASE_CREDENTIALS_JSON }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
           ME_ACCESS_TOKEN: ${{ secrets.ME_ACCESS_TOKEN }}
         run: |
           echo "$FIREBASE_CREDENTIALS_JSON" > serviceAccountKey.json
