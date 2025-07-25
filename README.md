@@ -56,8 +56,7 @@ Para rodar a aplicação localmente, você precisa ter o [Docker](https://www.do
 
 1.  **Clone o Repositório:**
     ```bash
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    cd seu-repositorio
+    git clone https://github.com/tioRaffa/e-commerce-projeto.git
     ```
 
 2.  **Configure as Variáveis de Ambiente:**
