@@ -1,4 +1,5 @@
-# Bookstore API - Backend para E-commerce
+
+# Bookstore API - Backend para E-commerce de Livros
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python">
@@ -10,30 +11,30 @@
   <img src="https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Ready">
 </div>
 
-API RESTful robusta para uma plataforma de e-commerce de livros, projetada com uma arquitetura moderna, escalável e orientada a serviços para simular uma operação de vendas de produtos físicos do mundo real.
+## 📖 Visão Geral
+
+API RESTful robusta para uma plataforma de e-commerce de livros, projetada com uma arquitetura moderna, escalável e orientada a serviços. O objetivo é simular uma operação de vendas de produtos físicos do mundo real, integrando serviços externos para autenticação, pagamento, cálculo de frete e envio de e-mails.
 
 ---
 
-### ⚠️ Status do Projeto: Em Desenvolvimento Ativo ⚠️
+### ✅ Status do Projeto: Funcional e Conteinerizado ✅
 
-Este é um projeto de portfólio que está sendo construído ativamente. O objetivo é explorar e implementar as melhores práticas em desenvolvimento backend, integração de APIs e arquitetura de software. As funcionalidades descritas abaixo estão sendo adicionadas de forma incremental.
-
-**Progresso Atual:** A fundação da aplicação (autenticação, usuários, endereços, catálogo) e o núcleo do fluxo de pagamento com **Stripe** estão **concluídos e testados**. O foco atual é na **conteinerização da aplicação com Docker**, preparando o terreno para a automação e o deploy.
+Este projeto de portfólio implementa um backend completo e funcional para um e-commerce de livros. A aplicação está totalmente conteinerizada com Docker e possui um pipeline de Integração Contínua (CI) configurado com GitHub Actions para garantir a qualidade e a estabilidade do código.
 
 ---
 
-### Arquitetura e Design
+## ✨ Arquitetura e Design
 
 O projeto foi estruturado para ser modular, seguro e de fácil manutenção, seguindo os seguintes princípios:
 
-* **Arquitetura de Apps por Domínio:** Cada responsabilidade principal (usuários, livros, pedidos, carrinho) é isolada em seu próprio app Django, promovendo baixo acoplamento e alta coesão.
-* **Autenticação Delegada:** Utiliza o **Firebase Authentication** como Provedor de Identidade (IdP). O backend é responsável apenas por validar os tokens JWT recebidos, não por armazenar senhas, resultando em uma arquitetura mais segura e escalável que suporta nativamente logins sociais.
-* **Camada de Serviço (Service Layer):** A lógica de negócio complexa e a comunicação com cada API externa (Stripe, Melhor Envio, etc.) são abstraídas em uma camada de serviço (`services.py`), mantendo as `Views` limpas e focadas em orquestração.
-* **Desenvolvimento Orientado a Testes:** A aplicação possui uma suíte de testes automatizados com `pytest` que valida as regras de negócio, a segurança dos endpoints e a lógica de integração.
+*   **Arquitetura de Apps por Domínio:** Cada responsabilidade principal (usuários, livros, pedidos, carrinho) é isolada em seu próprio app Django, promovendo baixo acoplamento e alta coesão.
+*   **Autenticação Delegada:** Utiliza o **Firebase Authentication** como Provedor de Identidade (IdP). O backend é responsável apenas por validar os tokens JWT recebidos, não por armazenar senhas, resultando em uma arquitetura mais segura e escalável que suporta nativamente logins sociais.
+*   **Camada de Serviço (Service Layer):** A lógica de negócio complexa e a comunicação com cada API externa (Stripe, Melhor Envio, etc.) são abstraídas em uma camada de serviço (`services.py`), mantendo as `Views` limpas e focadas em orquestração.
+*   **Desenvolvimento Orientado a Testes:** A aplicação possui uma suíte de testes automatizados com `pytest` que valida as regras de negócio, a segurança dos endpoints e a lógica de integração.
 
 ---
 
-### Funcionalidades
+## 🚀 Funcionalidades
 
 -   [x] **Autenticação Segura via Firebase:** Sistema de identidade completo com suporte a login por e-mail/senha e social (Google, Facebook, GitHub).
 -   [x] **Gerenciamento de Perfil e Endereços:** CRUD completo e seguro, garantindo que cada usuário só possa gerenciar seus próprios dados e com um limite de até 3 endereços.
@@ -41,14 +42,60 @@ O projeto foi estruturado para ser modular, seguro e de fácil manutenção, seg
 -   [x] **Catálogo de Livros Automatizado:** Sistema de importação de livros usando a **Google Books API**.
 -   [x] **Sistema de Carrinho de Compras:** Gestão de um carrinho temporário utilizando o framework de **sessão do Django**.
 -   [x] **Ciclo de Pagamento Completo:** Integração com a **API do Stripe** (em modo de teste) para processamento seguro de pagamentos.
--   [x] **Testes Automatizados (Base):** Suíte de testes com `pytest` para a fundação da aplicação (usuários e endereços).
--   [🚧] **Cálculo de Frete em Tempo Real:** Integração com a **API do Melhor Envio** para obter cotações de frete (lógica implementada, aguardando finalização).
--   [ ] **Comunicação Transacional:** Envio automático de e-mails de confirmação e status via **SendGrid**.
--   [ ] **Gestão Completa de Pedidos:** Finalização da `ViewSet` e dos serviços que orquestram todo o fluxo de checkout.
+-   [x] **Testes Automatizados:** Suíte de testes robusta com `pytest` e `coverage` para garantir a qualidade do código.
+-   [x] **Cálculo de Frete em Tempo Real:** Integração com a **API do Melhor Envio** para obter cotações de frete.
+-   [x] **Conteinerização com Docker:** A aplicação e seu banco de dados são gerenciados com `Docker` e `Docker Compose` para um ambiente de desenvolvimento e produção consistente.
+-   [x] **Integração Contínua (CI):** Workflow com **GitHub Actions** que roda os testes automaticamente a cada `push` ou `pull request` na branch `main`.
+-   [ ] **Comunicação Transacional:** Envio automático de e-mails de confirmação e status via **SendGrid** (próximo passo).
 
 ---
 
-### Estrutura da API (Principais Endpoints)
+## 🐳 Executando com Docker
+
+Para rodar a aplicação localmente, você precisa ter o [Docker](https://www.docker.com/get-started) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados.
+
+1.  **Clone o Repositório:**
+    ```bash
+    git clone https://github.com/seu-usuario/seu-repositorio.git
+    cd seu-repositorio
+    ```
+
+2.  **Configure as Variáveis de Ambiente:**
+    *   Renomeie o arquivo `.env-exemple` para `.env`.
+    *   Preencha todas as variáveis de ambiente necessárias no arquivo `.env`. Elas incluem as chaves de API para Stripe, Firebase, Melhor Envio e as configurações do banco de dados.
+
+3.  **Suba os Contêineres:**
+    *   Execute o comando a seguir na raiz do projeto. Ele irá construir a imagem da aplicação (se ainda não existir) e iniciar os contêineres do Django e do PostgreSQL.
+    ```bash
+    docker-compose up --build
+    ```
+
+4.  **Execute as Migrações (Primeira Vez):**
+    *   Em um novo terminal, com os contêineres em execução, execute o comando `migrate` dentro do contêiner da aplicação web para criar as tabelas no banco de dados:
+    ```bash
+    docker-compose exec web python manage.py migrate
+    ```
+
+5.  **Acesse a Aplicação:**
+    *   A API estará disponível em `http://localhost:8000/api/v1/`.
+
+---
+
+## 🔄 CI/CD com GitHub Actions
+
+O projeto utiliza GitHub Actions para automação de testes. O workflow, definido em `.github/workflows/django_ci.yaml`, é acionado a cada `push` ou `pull request` para a branch `main`.
+
+**O que o workflow faz:**
+
+1.  **Configura o Ambiente:** Prepara um ambiente Ubuntu com Python 3.11 e um serviço de banco de dados PostgreSQL.
+2.  **Instala Dependências:** Instala todas as dependências listadas no `requirements.txt`.
+3.  **Roda os Testes:** Executa a suíte de testes com `pytest`, utilizando as `secrets` do repositório para configurar as variáveis de ambiente necessárias.
+
+Isso garante que novas alterações não quebrem as funcionalidades existentes antes de serem mescladas à branch principal.
+
+---
+
+## 🛠️ Estrutura da API (Principais Endpoints)
 
 | Método | Endpoint | Descrição | Autenticação |
 | :--- | :--- | :--- | :--- |
@@ -63,8 +110,7 @@ O projeto foi estruturado para ser modular, seguro e de fácil manutenção, seg
 
 ---
 
-
-### 🛠️ Gerenciamento do Catálogo via Terminal (Management Commands)
+### ⚙️ Gerenciamento do Catálogo via Terminal (Management Commands)
 
 Para facilitar a população e o gerenciamento do catálogo de livros, foram criados comandos customizados do Django. Eles devem ser executados no terminal, na pasta raiz do projeto, com o ambiente virtual ativado.
 
@@ -140,16 +186,9 @@ O fluxo mais comum para adicionar um livro específico ao catálogo seria:
 
 4.  **Definir Preço e Estoque:** Acesse o **Django Admin** para editar o livro recém-importado, adicionando o `preço`, o `estoque` e as informações de `dimensões/peso` para o cálculo de frete.
 
------
-
-### Próximos Passos no Desenvolvimento
-
-O roadmap atual está focado em preparar a aplicação para um ambiente de produção.
-
--   [🚧] **Conteinerizar a Aplicação com Docker:** Escrever o `Dockerfile` e o `docker-compose.yml` para empacotar a aplicação e seus serviços (PostgreSQL) em um ambiente padronizado.
--   [ ] **Finalizar as Integrações:** Concluir a implementação da chamada à API do **Melhor Envio** e conectar o serviço do **SendGrid** para o envio de e-mails transacionais.
--   [ ] **Implementar CI/CD com GitHub Actions:** Criar um workflow para rodar os testes (`pytest`) automaticamente a cada `push` e preparar a imagem Docker para o deploy.
--   [ ] **Deploy na Nuvem:** Publicar a aplicação em uma plataforma como **Render.com**.
-
-
 ---
+
+## 📦 Próximos Passos
+
+-   [ ] **Finalizar a Integração com SendGrid:** Implementar o envio de e-mails transacionais (confirmação de pedido, etc.).
+-   [ ] **Deploy na Nuvem:** Publicar a aplicação em uma plataforma como [Render.com](http://Render.com) ou Heroku.
