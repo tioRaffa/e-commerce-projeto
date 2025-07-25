@@ -99,6 +99,12 @@ Representa um item específico dentro de um pedido.
     *   `DELETE`: Remove um livro do carrinho. Requer `book_id`.
 *   **Autenticação:** Não necessária.
 
+<details>
+  <summary>▶️ Exemplo no Insomnia (POST)</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
 ### 2. **Cálculo de Frete**
 
 *   **Endpoint:** `POST /api/v1/checkout/shipping-options/`
@@ -111,6 +117,12 @@ Representa um item específico dentro de um pedido.
     }
     ```
 *   **Resposta de Sucesso (200 OK):** Uma lista de objetos de frete do Melhor Envio.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
 ### 3. **Seleção de Frete para o Carrinho**
 
@@ -128,6 +140,12 @@ Representa um item específico dentro de um pedido.
     }
     ```
 
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
 ### 4. **Criação e Listagem de Pedidos**
 
 *   **Endpoint:** `/api/v1/orders/`
@@ -143,11 +161,23 @@ Representa um item específico dentro de um pedido.
     ```
 *   **Resposta de Sucesso (POST - 201 Created):** O objeto do pedido recém-criado, incluindo o `client_secret` da Stripe para o pagamento.
 
+<details>
+  <summary>▶️ Exemplo no Insomnia (POST)</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
 ### 5. **Cancelamento de Pedido**
 
 *   **Endpoint:** `POST /api/v1/orders/{id}/cancel/`
 *   **Autenticação:** Obrigatória.
 *   **Descrição:** Permite que o usuário cancele um pedido com status `PROCESSING`. A ação também tentará cancelar a cobrança na Stripe.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
 ### 6. **Gerar Etiqueta de Envio (Admin)**
 
@@ -155,3 +185,9 @@ Representa um item específico dentro de um pedido.
 *   **Autenticação:** Obrigatória (Apenas para Administradores).
 *   **Descrição:** Inicia o processo de geração da etiqueta de frete para um pedido com status `PROCESSING`. Após a conclusão, o pedido é atualizado para `SHIPPED` e o código de rastreio é salvo.
 *   **Resposta de Sucesso (200 OK):** O objeto do pedido atualizado com o status e o código de rastreio.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>

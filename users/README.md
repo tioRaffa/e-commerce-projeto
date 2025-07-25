@@ -83,6 +83,11 @@ A interação com o usuário é centralizada em um único endpoint, que se compo
         "addresses": []
     }
     ```
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
 ---
 
@@ -102,6 +107,12 @@ A interação com o usuário é centralizada em um único endpoint, que se compo
     ```
 
 *   **Resposta de Sucesso (200 OK):** O objeto do usuário com os dados atualizados.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
 ### Restrições
 

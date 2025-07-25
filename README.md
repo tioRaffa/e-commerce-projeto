@@ -17,9 +17,9 @@ API RESTful robusta para uma plataforma de e-commerce de livros, projetada com u
 
 ---
 
-### ✅ Status do Projeto: Funcional e Conteinerizado ✅
+### ⚠️ Status do Projeto: Em Fases Finais ⚠️
 
-Este projeto de portfólio implementa um backend completo e funcional para um e-commerce de livros. A aplicação está totalmente conteinerizada com Docker e possui um pipeline de Integração Contínua (CI) configurado com GitHub Actions para garantir a qualidade e a estabilidade do código.
+Este projeto de portfólio está em suas fases finais de desenvolvimento. A funcionalidade principal do backend está completa, testada e conteinerizada com Docker. O pipeline de CI/CD com GitHub Actions está operacional, garantindo a automação dos testes. Os próximos passos estão focados na conclusão de integrações secundárias e na preparação para o deploy em um ambiente de produção.
 
 ---
 

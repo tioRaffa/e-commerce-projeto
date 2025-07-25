@@ -82,6 +82,11 @@ Representa um endereço físico de um usuário.
         }
     ]
     ```
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
 ### 2. **Criar um Novo Endereço**
 
@@ -105,6 +110,12 @@ Representa um endereço físico de um usuário.
 *   **Resposta de Sucesso (201 Created):** O objeto do endereço recém-criado.
 *   **Resposta de Erro (400 Bad Request):** Se o limite de 3 endereços for atingido.
 
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
 ### 3. **Visualizar, Atualizar e Deletar um Endereço Específico**
 
 *   **Endpoint:** `/api/v1/addresses/{id}/`
@@ -115,3 +126,21 @@ Representa um endereço físico de um usuário.
     *   `PUT` / `PATCH`: Atualiza os dados de um endereço existente.
     *   `DELETE`: Remove um endereço.
 *   **Segurança:** A API garante que um usuário não possa acessar ou modificar um endereço que não lhe pertence, retornando `404 Not Found` se o ID do endereço não for do usuário logado.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia (GET)</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
+<details>
+  <summary>▶️ Exemplo no Insomnia (PATCH)</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
+<details>
+  <summary>▶️ Exemplo no Insomnia (DELETE)</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>

@@ -86,12 +86,24 @@ Modelos simples que armazenam, respectivamente, os nomes dos autores e das categ
         *   Exemplo: `/api/v1/books/?ordering=-price` (ordem decrescente de preço).
 *   **Resposta de Sucesso (200 OK):** Uma lista paginada de objetos de livro.
 
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
 ### 2. **Visualizar um Livro Específico**
 
 *   **Endpoint:** `GET /api/v1/books/{id}/`
 *   **Método:** `GET`
 *   **Autenticação:** Não necessária.
 *   **Descrição:** Retorna os detalhes completos de um único livro ativo.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
 ### 3. **Buscar Livros na API do Google**
 
@@ -102,6 +114,12 @@ Modelos simples que armazenam, respectivamente, os nomes dos autores e das categ
 *   **Query Param Obrigatório:** `q` (termo da busca).
     *   Exemplo: `/api/v1/books/search-google/?q=Frank Herbert`
 *   **Resposta de Sucesso (200 OK):** Uma lista de resultados da API do Google, contendo `title`, `authors` e `google_books_id`.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
 ### 4. **Importar Livro da API do Google**
 
@@ -119,3 +137,9 @@ Modelos simples que armazenam, respectivamente, os nomes dos autores e das categ
 
 *   **Resposta de Sucesso (201 Created):** O objeto do livro recém-criado e salvo no banco de dados.
 *   **Resposta de Erro (409 Conflict):** Se o livro com este `google_books_id` já existir no banco.
+
+<details>
+  <summary>▶️ Exemplo no Insomnia</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
