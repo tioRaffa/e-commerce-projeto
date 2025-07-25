@@ -85,8 +85,8 @@ A interação com o usuário é centralizada em um único endpoint, que se compo
     ```
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
+    <img width="1915" height="987" alt="Image" src="https://github.com/user-attachments/assets/31a33104-e0c4-4ca6-8d4f-d1407c4c2035" />
 </details>
 
 ---
@@ -112,8 +112,24 @@ A interação com o usuário é centralizada em um único endpoint, que se compo
   <summary>▶️ Exemplo no Insomnia</summary>
 
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
+  <img width="1917" height="1022" alt="Image" src="https://github.com/user-attachments/assets/240def5d-3df0-407b-9a47-0a64693ad676" />
 </details>
 
 ### Restrições
 
 *   Os métodos `POST`, `PUT`, `DELETE` e `LIST` no endpoint `/api/v1/users/` são desabilitados (`405 Method Not Allowed`) para usuários comuns, pois a criação de usuários é gerenciada pelo Firebase, e a listagem de todos os usuários é uma ação restrita a administradores (se implementada).
+
+### Testes
+<details>
+  <summary>▶️ CPF unico</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+  <img width="1919" height="1017" alt="Image" src="https://github.com/user-attachments/assets/ff9d7751-a0c9-48fb-b343-b11d9b635203" />
+</details>
+
+<details>
+  <summary>▶️ Atualizar CPF</summary>
+
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+  <img width="1919" height="1019" alt="Image" src="https://github.com/user-attachments/assets/97c030dc-f5c2-447d-9734-1e841e37a952" />
+</details>
