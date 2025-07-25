@@ -84,7 +84,7 @@ Representa um endereço físico de um usuário.
     ```
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1919" height="987" alt="Image" src="https://github.com/user-attachments/assets/3c754baa-f440-4815-abf8-6b1cc870d177" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -112,7 +112,7 @@ Representa um endereço físico de um usuário.
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1919" height="1008" alt="Image" src="https://github.com/user-attachments/assets/c1a4e8f8-d422-4d60-adfc-691c5ec9a664" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -129,18 +129,32 @@ Representa um endereço físico de um usuário.
 
 <details>
   <summary>▶️ Exemplo no Insomnia (GET)</summary>
-
+   <img width="1638" height="890" alt="Image" src="https://github.com/user-attachments/assets/ddd01e12-8603-4c27-95aa-3d23789b0678" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
 <details>
   <summary>▶️ Exemplo no Insomnia (PATCH)</summary>
-
+   <img width="1919" height="1014" alt="Image" src="https://github.com/user-attachments/assets/d2496bc3-40a2-4182-ac9e-765ea670cab0" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
 <details>
   <summary>▶️ Exemplo no Insomnia (DELETE)</summary>
+   <img width="1640" height="886" alt="Image" src="https://github.com/user-attachments/assets/6a84d4c5-1765-4a59-860d-06cfcf592782" />
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
+### Testes
+
+<details>
+  <summary>▶️ Informações faltando</summary>
+   <img width="1631" height="893" alt="Image" src="https://github.com/user-attachments/assets/ae5b9002-e34e-4dd7-9beb-a4d459511aac" />
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
+<details>
+  <summary>▶️ CEP invalido</summary>
+   <img width="1633" height="896" alt="Image" src="https://github.com/user-attachments/assets/4563bf36-f28b-4cc4-809d-57e4425842d4" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
