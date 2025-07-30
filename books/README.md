@@ -88,7 +88,7 @@ Modelos simples que armazenam, respectivamente, os nomes dos autores e das categ
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1640" height="891" alt="Image" src="https://github.com/user-attachments/assets/b753e7a7-7df4-4ea2-951a-f0745e06cd73" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -101,7 +101,7 @@ Modelos simples que armazenam, respectivamente, os nomes dos autores e das categ
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1636" height="897" alt="Image" src="https://github.com/user-attachments/assets/9b888492-663c-4503-baef-c766ba9e6e4e" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -117,7 +117,7 @@ Modelos simples que armazenam, respectivamente, os nomes dos autores e das categ
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1637" height="890" alt="Image" src="https://github.com/user-attachments/assets/683df79f-a400-4f2d-922f-51d9979a195f" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -140,6 +140,6 @@ Modelos simples que armazenam, respectivamente, os nomes dos autores e das categ
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1635" height="891" alt="Image" src="https://github.com/user-attachments/assets/dc672a90-dc66-4c86-bc4a-68fc8cbd92e2" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
