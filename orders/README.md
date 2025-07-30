@@ -101,7 +101,19 @@ Representa um item específico dentro de um pedido.
 
 <details>
   <summary>▶️ Exemplo no Insomnia (POST)</summary>
+   <img width="1636" height="890" alt="Image" src="https://github.com/user-attachments/assets/a8e4023a-aa7d-4d64-b9a1-2a15116c70ac" />
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
 
+<details>
+  <summary>▶️ Exemplo no Insomnia (GET)</summary>
+   <img width="1633" height="894" alt="Image" src="https://github.com/user-attachments/assets/bc2901cd-1088-49f6-9f9d-666199570541" />
+  <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
+<details>
+  <summary>▶️ Exemplo no Insomnia (DELETE)</summary>
+   <img width="1636" height="900" alt="Image" src="https://github.com/user-attachments/assets/1572a7a2-d1de-4e77-bbed-e3ee8ce56cd3" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -120,7 +132,7 @@ Representa um item específico dentro de um pedido.
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1623" height="893" alt="Image" src="https://github.com/user-attachments/assets/b36bcec0-fa5f-4e95-9194-12869a7ef07b" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -142,7 +154,7 @@ Representa um item específico dentro de um pedido.
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+<img width="1637" height="900" alt="Image" src="https://github.com/user-attachments/assets/b9792260-c77c-4192-b650-b3e76f11bbf3" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -163,8 +175,14 @@ Representa um item específico dentro de um pedido.
 
 <details>
   <summary>▶️ Exemplo no Insomnia (POST)</summary>
-
+   <img width="1639" height="892" alt="Image" src="https://github.com/user-attachments/assets/b68e6c17-7745-4786-9909-eda5e1bdc218" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
+</details>
+
+<details>
+  <summary>▶️ Exemplo no Insomnia (GET)</summary>
+<img width="1633" height="893" alt="Image" src="https://github.com/user-attachments/assets/3680f01b-1944-48c5-b385-326f0574da3e" />  
+<img width="1632" height="895" alt="Image" src="https://github.com/user-attachments/assets/97f87a3a-6724-4519-a03e-635472f56f7b" />
 </details>
 
 ### 5. **Cancelamento de Pedido**
@@ -175,7 +193,7 @@ Representa um item específico dentro de um pedido.
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+<img width="1637" height="886" alt="Image" src="https://github.com/user-attachments/assets/1cded7a0-bacb-44cb-a1af-c0aa9c800783" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
 
@@ -188,6 +206,7 @@ Representa um item específico dentro de um pedido.
 
 <details>
   <summary>▶️ Exemplo no Insomnia</summary>
-
+   <img width="1630" height="891" alt="Image" src="https://github.com/user-attachments/assets/e174c5f9-a9eb-462d-a35c-010e81456ec4" />
+   <img width="1847" height="889" alt="Image" src="https://github.com/user-attachments/assets/f9c6ee24-1144-4cd4-bc7e-86e49118acfb" />
   <!-- Adicione aqui o print da sua requisição no Insomnia -->
 </details>
